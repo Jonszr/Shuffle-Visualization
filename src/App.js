@@ -1,25 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+
+import MergeSort from "./MergeSort";
+import FYShuffle from "./FYShuffle/FYShuffle";
+
+import { Container, Link, Breadcrumbs, Box, Typography} from '@mui/material';
+export default function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div >
+      <Container maxWidth={"lg"}>
+      <Breadcrumbs aria-label="breadcrumb">
+        <Link underline="none" color="inherit">
+          September 03, 2023
+        </Link>
+        <Link
+          underline="hover"
+          color="lightblue"
+          href="https://zhenrongshi.com"
         >
-          Learn React
-        </a>
-      </header>
+          Zhenrong Shi
+        </Link>
+        
+      </Breadcrumbs>
+      <FYShuffle/>
+      <Typography>
+      For more about the Shuffle algorithm, see the <Link href="">Wikipedia article</Link>The visualizations in this post were built with d3.js.
+Want to see the source code, see my <Link href="">GitHub</Link>
+      </Typography>
+      <Box marginTop="300px">
+      <Breadcrumbs aria-label="breadcrumb">
+        <Link underline="none" color="inherit">
+          September 03, 2023
+        </Link>
+        <Link
+          underline="hover"
+          color="lightblue"
+          href="https://zhenrongshi.com"
+        >
+          Zhenrong Shi
+        </Link>
+        
+      </Breadcrumbs>
+      </Box>
+      
+      </Container>
+      
     </div>
   );
 }
-
-export default App;
