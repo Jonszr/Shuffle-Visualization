@@ -1,17 +1,17 @@
-// Import React and useEffect hook for managing side effects
 import React, { useEffect, useState, useRef } from 'react';
-// Import D3 library for data visualization
 import * as d3 from 'd3';
-// Import the component's CSS file for styling
-import './FYShuffle.css';
-import { Box, Button, IconButton, Stack, Typography } from '@mui/material';
+import { Box, Button, Stack, Typography } from '@mui/material';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import { styled } from '@mui/material/styles';
-import { purple, blue, red } from '@mui/material/colors';
+import { red } from '@mui/material/colors';
+import codepic from '../codepic.png';
+import './FYShuffle.css'
+
 // Define the FYShuffle component
 const FYShuffle = () => {
+    // Define duration and size settings
     const duration = {
-        durationBetweenLines: 50, // Duration for transitions
+        durationBetweenLines: 50,
         durationTransitionTime: 400,
         durationNewVisual: 12400
     };
@@ -19,9 +19,10 @@ const FYShuffle = () => {
     const size = {
         w: 960,
         n: 240,
-        h: 50,
+        h: 60,
     };
 
+    // Define scales and transform function
     const scale = {
         x: d3.scaleLinear().domain([0, size.n]).range([size.h, size.w - size.h]),
         a: d3.scaleLinear().domain([0, size.n - 1]).range([90 + 60, 270 - 60]),
@@ -33,17 +34,21 @@ const FYShuffle = () => {
         return "translate(" + x(i) + "," + h + ")rotate(" + a(d) + ")";
     };
 
+    // Generate initial data array
     const data = d3.range(size.n);
 
     const [showButton, setShowButton] = useState(true);
 
-    const lineRef = useRef(null); // Create a ref for the line elements
+    const lineRef = useRef(null);
 
+    // Function to start the animation
     const pressToRun = () => {
         const { h } = size;
         const { durationBetweenLines, durationTransitionTime, durationNewVisual } = duration;
 
         setShowButton(false);
+
+        // Function to generate a unique random list
         const generateUniqueRandomList = (array) => {
             const passes = [];
 
@@ -55,25 +60,21 @@ const FYShuffle = () => {
             return passes;
         };
 
+        // Function to start the animation sequence
         const startAnimation = async () => {
-
             const passes = generateUniqueRandomList(data);
 
             for (let i = 0; i < passes.length; i++) {
                 const pass = passes[i];
 
                 await lineRef.current
-
                     .data(pass, Number)
                     .transition()
-                    .attr("y1", 0)
+                    .attr("y1", 10)
                     .attr("y2", h)
                     .delay((d, i) => i * durationBetweenLines)
                     .duration(durationTransitionTime)
-                    .attr("transform", transform)
-
-                // await lineRef.current.data(pass,Number).transition().style("stroke","black");
-
+                    .attr("transform", transform);
             }
 
             setTimeout(() => {
@@ -95,7 +96,7 @@ const FYShuffle = () => {
             .attr("width", size.w)
             .attr("height", size.h + 50);
 
-        lineRef.current = svg.selectAll("line") // Assign the line elements to the ref
+        lineRef.current = svg.selectAll("line")
             .data(data)
             .enter().append("line")
             .attr("x1", 0)
@@ -103,37 +104,46 @@ const FYShuffle = () => {
             .attr("x2", 0)
             .attr("y2", 0)
             .attr("transform", transform);
-    }, []); // Run the effect only once on component mount
+    }, []);
 
-
+    // Define the styled PlayButton
     const PlayButton = styled(Button)(({ theme }) => `
-    padding:0;
-    margin:0;
-    color:black;
+    padding: 0;
+    margin: 0;
+    color: black;
     font-size: 2rem;
     background-color: white;
     &:hover {
         color: ${red[600]};
-        background-color:transparent;
-      }
+        background-color: transparent;
+    }
     `);
+
     return (
         <div>
-            <Typography variant="h3" gutterBottom >Shuffle Visualization</Typography>
-            <Typography>When we aim to create an array of 10,000 unique numbers in random order, the traditional approach involves initializing and populating an array with 10,000 random numbers while ensuring their uniqueness. This method is not efficient and can have a worst-case time complexity of O(n^2).
+            <Typography variant="h3" gutterBottom>Shuffle Visualization</Typography>
+            <Typography>
+                When we aim to create an array of 10,000 unique numbers in random order, the traditional approach involves initializing and populating an array with 10,000 random numbers while ensuring their uniqueness. This method is not efficient and can have a worst-case time complexity of O(n^2).
             </Typography>
-            <br></br>
-            <Typography>However, there's a better way. How about generating an array from 1 to 10,000 and shuffling it?</Typography>
-            <br></br>
-            <Typography>Think of it as having a fresh deck of cards:</Typography>
-            <Stack margin={0} justifyContent={'center'} alignItems={'center'} id="visualization-container">
+            <br />
+            <Typography>
+                However, there's a better way. How about generating an array from 1 to 10,000 and shuffling it?
+            </Typography>
+            <br />
+            <Typography>
+                Think of it as having a fresh deck of cards:
+            </Typography>
+            <Stack marginY="50px" justifyContent={'center'} alignItems={'center'} id="visualization-container">
                 <Box position={"absolute"} height={"1/2"}>
                     {showButton && <PlayButton onClick={pressToRun} aria-label='playArrowIcon'> <PlayArrowIcon fontSize='inherit' /></PlayButton>}
                 </Box>
-
             </Stack>
-            <Typography>To implement an in-place O(n) shuffle, simply pick a random remaining element from the front and place it in its new location at the front. The unshuffled elements remain at the bottom, ready for subsequent shuffling.</Typography>
-            
+            <Typography marginY="50px">
+                To implement an in-place O(n) shuffle, simply pick a random remaining element from the front and place it in its new location at the front. The unshuffled elements remain at the bottom, ready for subsequent shuffling.
+            </Typography>
+            <Stack marginY="50px" justifyContent={'center'} alignItems={'center'}>
+                <img src={codepic} alt="Code" />
+            </Stack>
         </div>
     );
 };
