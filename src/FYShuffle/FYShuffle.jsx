@@ -157,9 +157,9 @@ const FYShuffle = () => {
                     </Typography>
                 </Grid>
                 <Grid item xs={4}>
-                            <Typography variant="body2" color={blue[400]}>
-                                Click to shuffle!
-                            </Typography>
+                    <Typography variant="body2" color={blue[400]}>
+                        Click to shuffle!
+                    </Typography>
                 </Grid>
             </Grid>
             <Stack marginY="50px" justifyContent={'center'} alignItems={'center'}>
