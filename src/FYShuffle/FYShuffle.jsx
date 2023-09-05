@@ -1,11 +1,23 @@
 import React, { useEffect, useState, useRef } from 'react';
 import * as d3 from 'd3';
-import { Box, Button, Stack, Typography } from '@mui/material';
+import { Box, Button, Grid, Stack, Typography } from '@mui/material';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import { styled } from '@mui/material/styles';
-import { red } from '@mui/material/colors';
+import { blue, red } from '@mui/material/colors';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
 import codepic from '../codepic.png';
 import './FYShuffle.css'
+
+const bull = (
+    <Box
+        component="span"
+        sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
+    >
+        •
+    </Box>
+);
 
 // Define the FYShuffle component
 const FYShuffle = () => {
@@ -120,7 +132,7 @@ const FYShuffle = () => {
     `);
 
     return (
-        <div>
+        <Box marginY="50px">
             <Typography variant="h3" gutterBottom>Shuffle Visualization</Typography>
             <Typography>
                 When we aim to create an array of 10,000 unique numbers in random order, the traditional approach involves initializing and populating an array with 10,000 random numbers while ensuring their uniqueness. This method is not efficient and can have a worst-case time complexity of O(n^2).
@@ -138,13 +150,25 @@ const FYShuffle = () => {
                     {showButton && <PlayButton onClick={pressToRun} aria-label='playArrowIcon'> <PlayArrowIcon fontSize='inherit' /></PlayButton>}
                 </Box>
             </Stack>
+            <Grid container spacing={2}>
+                <Grid item xs={8}>
+                    <Typography>
+                        To implement an in-place O(n) shuffle, simply pick a random remaining element from the front and place it in its new location at the front. The unshuffled elements remain at the bottom, ready for subsequent shuffling.
+                    </Typography>
+                </Grid>
+                <Grid item xs={4}>
+                            <Typography variant="body2" color={blue[400]}>
+                                Click to shuffle!
+                            </Typography>
+                </Grid>
+            </Grid>
             <Typography marginY="50px">
                 To implement an in-place O(n) shuffle, simply pick a random remaining element from the front and place it in its new location at the front. The unshuffled elements remain at the bottom, ready for subsequent shuffling.
             </Typography>
             <Stack marginY="50px" justifyContent={'center'} alignItems={'center'}>
                 <img src={codepic} alt="Code" />
             </Stack>
-        </div>
+        </Box>
     );
 };
 

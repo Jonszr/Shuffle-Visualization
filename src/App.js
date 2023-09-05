@@ -20,7 +20,7 @@ export default function App() {
             color={blue[400]}
             href="https://zhenrongshi.com"
           >
-            Zhenrong Shi
+            Jon Shi
           </Link>
         </Breadcrumbs>
 
@@ -38,7 +38,7 @@ export default function App() {
             Wikipedia article
           </Link>
           . The visualizations in this post were built with d3.js. Want to see
-          the source code, see my{" "}
+          the source code, check my{" "}
           <Link
             underline="hover"
             color={blue[400]}
@@ -60,7 +60,7 @@ export default function App() {
               color={blue[400]}
               href="https://zhenrongshi.com"
             >
-              Zhenrong Shi
+              Jon Shi
             </Link>
           </Breadcrumbs>
         </Box>
