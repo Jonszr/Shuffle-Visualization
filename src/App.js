@@ -2,13 +2,25 @@ import React from "react";
 import FYShuffle from "./FYShuffle/FYShuffle";
 import { Container, Link, Breadcrumbs, Box, Typography } from '@mui/material';
 import { blue } from "@mui/material/colors";
+import { createTheme, ThemeProvider } from '@mui/material';
+
+const theme = createTheme({
+  typography: {
+    fontFamily: [
+      'Poppins', 'sans-serif'
+    ].join(','),
+  },});
 
 /**
  * The main application component.
  */
 export default function App() {
+  
+
+
   return (
-    <div>
+    <ThemeProvider theme={theme}>
+      <div>
       <Container maxWidth={"lg"}>
         {/* Date and Author Breadcrumbs */}
         <Breadcrumbs aria-label="breadcrumb">
@@ -66,5 +78,7 @@ export default function App() {
         </Box>
       </Container>
     </div>
+    </ThemeProvider>
+    
   );
 }
